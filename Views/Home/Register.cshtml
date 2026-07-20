@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="page-section" id="register" style="padding-top: 7rem; padding-bottom: 5rem;">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="row g-0 rounded shadow-lg overflow-hidden">
+
+                    <!-- Brand panel -->
+                    <div class="col-md-5 bg-primary text-white d-flex flex-column justify-content-center align-items-center text-center p-5">
+                        <div class="divider-custom divider-light mb-4">
+                            <div class="divider-custom-line"></div>
+                            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                            <div class="divider-custom-line"></div>
+                        </div>
+                        <h2 class="text-uppercase text-white mb-3">Join Us</h2>
+                        <p class="text-white-50 mb-0">Create an account to get started.</p>
+                    </div>
+
+                    <!-- Form panel -->
+                    <div class="col-md-7 bg-white p-5">
+                        <h2 class="page-section-heading text-uppercase text-secondary mb-1">Register</h2>
+                        <p class="text-muted mb-4">Fill in your details to create an account.</p>
+
+                        <form id="registerForm">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="fullName" name="fullName" type="text" placeholder="Enter your full name..." required />
+                                <label for="fullName">Full name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email..." required />
+                                <label for="email">Email address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="password" name="password" type="password" placeholder="Enter your password..." required />
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password..." required />
+                                <label for="confirmPassword">Confirm password</label>
+                            </div>
+                            <button class="btn btn-primary btn-xl w-100" type="submit">Register</button>
+                        </form>
+
+                        <p class="text-center mt-4 mb-0">
+                            Already have an account?
+                            <a asp-controller="Home" asp-action="Login" class="fw-bold text-primary">Login</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#registerForm').on('submit', function (e) {
+                e.preventDefault();
+
+                var formData = {
+                    fullName: $('#fullName').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    confirmPassword: $('#confirmPassword').val()
+                };
+
+                if (formData.password !== formData.confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+
+              $.ajax({
+                    url: '@Url.Action("Register", "Home")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        var message =
+                            'Full Name: ' + response.fullName + '\n' +
+                            'Email: ' + response.email + '\n' +
+                            'Password: ' + response.password + '\n' +
+                            'Confirm Password: ' + response.confirmPassword;
+
+                        alert(message);
+                    },
+                    error: function (xhr) {
+                        alert('Something went wrong. Status: ' + xhr.status);
+                    }
+                });
+            });
+        });
+    </script>
+}
