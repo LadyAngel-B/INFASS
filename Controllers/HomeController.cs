@@ -32,11 +32,20 @@ namespace INFASS.Controllers
         {
             return View();
         }
+
+       
+
         [HttpPost]
         public IActionResult Register([FromBody] RegisterViewModel model)
         {
-            // TODO: validate inputs and create the account
-            return Json(model);
+            User user = new User(model.FullName, model.Email, model.Password);
+
+            string[] fields = { "Name", "Email", "Password" };
+            object[] values = { model.FullName, model.Email, model.Password };
+
+            string query = user.GenerateInsertQuery("Users", fields, values);
+
+            return Json(new { query = query });
         }
     }
 }

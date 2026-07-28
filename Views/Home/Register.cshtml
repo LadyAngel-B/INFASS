@@ -80,12 +80,9 @@
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
-                    success: function (response) {
-                        var message =
-                            'Full Name: ' + response.fullName + '\n' +
-                            'Email: ' + response.email + '\n' +
-                            'Password: ' + response.password + '\n' +
-                            'Confirm Password: ' + response.confirmPassword;
+
+                     success: function (response) {
+            alert(response.query);
 
                         alert(message);
                     },
