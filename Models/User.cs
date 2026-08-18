@@ -7,23 +7,17 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
 
-        public User(
-            string fullName,
-            string email,
-            string password)
+        public User(string fullName, string email, string password)
         {
             FullName = fullName;
             Email = email;
             Password = password;
         }
 
-        public string GenerateInsertQuery(
-            string tableName,
-            string[] fields,
-            object[] values)
+
+        public string GenerateInsertQuery(string tableName, string[] fields, object[] values)
         {
-            string query =
-                "INSERT INTO " + tableName + " (";
+            string query = "INSERT INTO " + tableName + " (";
 
             for (int i = 0; i < fields.Length; i++)
             {
@@ -50,5 +44,7 @@
 
             return query;
         }
+
+
     }
 }
