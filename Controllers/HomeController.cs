@@ -8,7 +8,7 @@ namespace INFASS.Controllers
     public class HomeController : Controller
     {
              private readonly ILogger<HomeController> _logger;
-     private readonly string _connectionString;
+              private readonly string _connectionString;
 
      public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
      {
